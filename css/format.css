@@ -2,8 +2,8 @@
 * element that contains the map. */
 #map {
 	height: 400px;
-	width: 50%;
-	margin: 0;
+	width: 45%;
+	margin: 2.5;
 	padding: 0;
 }
 
@@ -12,18 +12,19 @@
 }
 
 .button {
-	margin = 10px;
+	margin: 10px;
 }
 
 
 html, body {
 	
 	height: 100%;
-	margin: 0;
+	margin: 5px;
 	padding: 0;
 	background-color: lightblue;
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
-}
+	max-width: 100%;
+    overflow-x: hidden;}
 
 table{
 	border: solid black;

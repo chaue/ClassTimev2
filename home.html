@@ -31,12 +31,13 @@
 			<script src="script/map_init.js"></script>
 			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpu6Pbn1FrHsdcEE9kNspyUz70NQ2Wmio&libraries=places&callback=initMap" async defer></script>
 		</div>
-		<div class="col-md-6">
+		<div id="calendar" class="col-md-6">
+			<iframe src="https://calendar.google.com/calendar/embed?src=1lro926hikptohi6b3danva6ck%40group.calendar.google.com&ctz=America%2FLos_Angeles" style="border: 0" height="400px" width="100%" frameborder="0" scrolling="no"></iframe>
 		</div>
 	</div>
 	<p align = "center">
 		Search...
-		<input id="wheretogo" type="text">
+		<input id="pac-input" class="controls" type="text" placeholder="Search Box">
 		<input id="updatemap" type="button" class="btn btn-primary" value="Update Map" onclick="updateMap();" />
 		<input id="distcalc" type="button" class="btn btn-primary" value="Calculate Time" onclick="calculateDistance();" />
 		<input type="button" value="Restart" type="button" class="btn btn-primary" onClick="location.href = location.href">
