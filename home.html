@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Home</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/format.css">
+    
+	<div id ="description">
+      <h2>How long will it take to get there?</h2>
+    </div>
+	
+  </head>
+  <body onload="initMap();">
+	<div class="row">
+		<div id="map" class="col-md-6">
+			<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+			<script src="script/map_init.js"></script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpu6Pbn1FrHsdcEE9kNspyUz70NQ2Wmio&libraries=places&callback=initMap" async defer></script>
+		</div>
+		<div class="col-md-6">
+		</div>
+	</div>
+	<p align = "center">
+		Search...
+		<input id="wheretogo" type="text">
+		<input id="updatemap" type="button" class="btn btn-primary" value="Update Map" onclick="updateMap();" />
+		<input id="distcalc" type="button" class="btn btn-primary" value="Calculate Time" onclick="calculateDistance();" />
+		<input type="button" value="Restart" type="button" class="btn btn-primary" onClick="location.href = location.href">
+	
+	</p>
+	<p align = "center">
+		<text>Speed: </text>
+		<select id="speedselect">
+			<option value=1.38112>Normal</option>
+			<option value=1.51>Fast</option>
+			<option value=1>Slow</option>
+			<option value=2.5>Jogging</option>
+		</select>
+	</p>
+	<table>
+		<tr>	
+			<th>Time of Arrival</th>
+			<th>Start Location</th>
+			<th>Destination</th>
+			<th>Travel Time (minutes)</th>
+			<th>Leave By</th>
+		</tr>
+		<tr>
+			<td id="toa">
+				<input type="text" id="toa1" class="timetext" maxlength="2" />
+				:
+				<input type="text" id="toa2" class="timetext" maxlength="2" />
+			</td> 
+			<td id="startloc"></td>
+			<td id="dest"></td>
+			<td id="traveltime"></td>
+			<td id="leaveby"></td>
+		</tr>
+	</table>
+  </body>
+</html>
