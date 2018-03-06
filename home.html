@@ -17,8 +17,13 @@
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+	<script src="script/map_init.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpu6Pbn1FrHsdcEE9kNspyUz70NQ2Wmio&libraries=places&callback=initMap" async defer></script>
+	
 	<link rel="stylesheet" type="text/css" href="css/format.css">
     
+	
 	<div id ="description">
       <h2>How long will it take to get there?</h2>
     </div>
@@ -28,7 +33,6 @@
 	<div class="row">
 		<div id="map" class="col-md-6">
 			<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-			<script src="script/map_init.js"></script>
 			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpu6Pbn1FrHsdcEE9kNspyUz70NQ2Wmio&libraries=places&callback=initMap" async defer></script>
 		</div>
 		<div id="calendar" class="col-md-6">
@@ -37,6 +41,7 @@
 	</div>
 	<p align = "center">
 		Search...
+		<input id="wheretogo" type="text">
 		<input id="updatemap" type="button" class="btn btn-primary" value="Update Map" onclick="updateMap();" />
 		<input id="distcalc" type="button" class="btn btn-primary" value="Calculate Time" onclick="calculateDistance();" />
 		<input type="button" value="Restart" type="button" class="btn btn-primary" onClick="location.href = location.href">

@@ -12,7 +12,6 @@ var endLocName;
 var d;
 
 var flip = false;
-count = 0;
 
 var content = "hello";
 
@@ -25,6 +24,103 @@ function initMap(dName)
 		center: ucla,
 		zoom: 15
 	});
+	
+	// Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+		var infowin = [];
+		
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+		// this works ////////////////////////	
+		  var infowindow = new google.maps.InfoWindow({
+			  content: place.name 
+		  });
+            
+			var marker = new google.maps.Marker({
+              map: map,
+              title: place.name,
+              position: place.geometry.location
+            })
+			marker.addListener('mouseover', function(){
+				infowindow.open(map, marker);
+			});
+			marker.addListener('mouseout', function() {
+				infowindow.close();
+			});
+			
+			markers.push(marker);
+		////////////////////////////////////////////////
+
+			google.maps.event.addListener(marker, 'click', function() 
+			{
+				if(startLoc !== null && endLoc !== null)
+				{
+					if(startLoc !== marker){
+						startLoc.setAnimation(null);
+					}
+					endLoc.setAnimation(null);
+					startLoc = null;
+					endLoc = null;
+					marker.setAnimation(google.maps.Animation.BOUNCE);
+					document.getElementById("dest").innerHTML = " ";
+				}
+				if(!flip)
+				{
+					document.getElementById("startloc").innerHTML = place.name;
+					startLocName = place.name;
+					startLoc = marker;
+					flip = !flip;
+					marker.setAnimation(google.maps.Animation.BOUNCE);
+				}
+				else
+				{
+					document.getElementById("dest").innerHTML = place.name;
+					endLocName = place.name;
+					endLoc = marker;
+					flip = !flip;
+					marker.setAnimation(google.maps.Animation.BOUNCE);
+				}
+			});
+	
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
 	
 	//infowindow = new google.maps.InfoWindow();
 	var service = new google.maps.places.PlacesService(map);
@@ -86,7 +182,6 @@ function createMarker(place)
 	// add click functionality 
 	google.maps.event.addListener(marker, 'click', function() 
 	{
-		/*
 		if(startLoc !== null && endLoc !== null)
 		{
 			if(startLoc !== marker){
@@ -97,36 +192,28 @@ function createMarker(place)
 			endLoc = null;
 			marker.setAnimation(google.maps.Animation.BOUNCE);
 			document.getElementById("dest").innerHTML = " ";
-			count++;
 		}
-		*/
-		if(count == 0)
+		if(!flip)
 		{
 			document.getElementById("startloc").innerHTML = place.name;
 			startLocName = place.name;
 			startLoc = marker;
-			count++;
+			flip = !flip;
 			marker.setAnimation(google.maps.Animation.BOUNCE);
 		}
-		else if (count == 1)
+		else
 		{
 			document.getElementById("dest").innerHTML = place.name;
 			endLocName = place.name;
 			endLoc = marker;
+			flip = !flip;
 			marker.setAnimation(google.maps.Animation.BOUNCE);
-			count++;
-		}
-		else {
-			markers.forEach(function(marker) {
-				marker.setAnimation(null);
-			})
-			document.getElementById("startloc").innerHTML = "";
-			document.getElementById("dest").innerHTML = "";
-			count = 0;
 		}
 	});
-}
+	
+	
 
+}
 function calculateDistance()
 {
 	if(startLoc === null || endLoc === null)
